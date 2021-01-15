@@ -92,6 +92,7 @@ function getMovieInfo() {
             editMovieForm(movieDisplay);
 
            });
+           //saveMovie();
            }).catch((error) => {
                console.log(error);
        });
@@ -122,9 +123,30 @@ function editMovieForm(movie) {
     });
 }
 
+/*
+function saveMovie() {
+
+    $('#save-button').on('click', function(e) {
+        e.preventDefault();
+
+        let movieId = $(this).attr('data-id');
+        let movieTitle = $(this).parent().next().children().first().val();
+        let movieRating = $(this).parent().next().children().first().next().val();
+
+        let movieObj = {
+            title: `${movieTitle}`,
+            rating: `${movieRating}`
+        };
+
+        console.log(movieObj);
+
+        editMovie(movieObj, movieId);
+        getMovieInfo();
+    })
+}
 
 
-
+ */
 
 
 
