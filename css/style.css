@@ -64,6 +64,31 @@
     -moz-animation-delay: 900ms;
 }
 
+
+
 ul {
     list-style: none;
+}
+
+#title {
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+}
+
+body {
+    background: midnightblue;
+    color: white;
+}
+
+
+#movie-display {
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+}
+
+
+#add {
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+
 }
