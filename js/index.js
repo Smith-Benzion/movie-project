@@ -82,8 +82,8 @@ function getMovieInfo() {
               </ul>   
               <form>
                 <button class="edit-info" data-id="${title}">Edit</button>
-                <button class="save-button" data-id="">Save</button>
-                <button class="delete-button" data-id="">Delete</button>
+                <button class="save-button" data-id="${id}">Save</button>
+                <button class="delete-button" data-id="${id}">Delete</button>
               </form>
               
               <div class=""></div>
@@ -93,6 +93,7 @@ function getMovieInfo() {
 
            });
            //saveMovie();
+           deleteFilm()
            }).catch((error) => {
                console.log(error);
        });
@@ -121,6 +122,18 @@ function editMovieForm(movie) {
         </select>`);
 
     });
+}
+
+function deleteFilm() {
+    $('.delete-button').on('click', function (e) {
+        e.preventDefault();
+        let idOfMovie = $(this).attr('data-id');
+        console.log(idOfMovie);
+
+        deleteMovie(idOfMovie)
+            getMovieInfo()
+
+    })
 }
 
 /*
