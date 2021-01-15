@@ -84,25 +84,15 @@ function getMovieInfo() {
                 <button class="edit-info" data-id="${title}">Edit</button>
                 <button class="save-button" data-id="${id}">Save</button>
                 <button class="delete-button" data-id="${id}">Delete</button>
-                <div class="d-none">
-                    <input type="text" class="movie-title">
-                    <select class="movie-rating">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                </div>
               </form>
-              
+              <div class="edit-info"></div>
               
               `;
 
             editMovieForm(movieDisplay);
 
            });
-
+           activateSave();
            deleteFilm()
            }).catch((error) => {
                console.log(error);
@@ -112,65 +102,50 @@ function getMovieInfo() {
 }
     getMovieInfo();
 
+    function activateSave() {
+        $('.save-button').on('click', function (e) {
+            e.preventDefault();
+            let idMovie = $(this).attr('data-id');
+            let movieTitle = $(this).parent().next().children().first().val();
+            let ratingMovie = $(this).parent().next().children().first().next().val();
+            let movieObj = {
+                title: `${movieTitle}`,
+                rating: `${ratingMovie}`
+            };
+            console.log(movieObj);
+            fetch(`https://flash-checkered-play.glitch.me/movies/${idMovie}`,
+                {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(movieObj)
+                }).then(response => response.json()).then(data => {
+                console.log(`Edited movie data JSON: ${data}`);
+            }).then(getMovieInfo)
 
-function editMovieForm(movie) {
-    $('#movie-display').html(movie);
-    $('#loading').css('display', 'none');
-    $('.edit-info').on('click', function(e) {
-        e.preventDefault();
-        let titleMovie = $(this).attr('data-id');
-        console.log(titleMovie);
+        });
+    }
 
-        $(this).parent().children().next().next().next().removeClass("d-none");
+    function editMovieForm(movie) {
+        $('#movie-display').html(movie);
+        $('#loading').css('display', 'none');
+        $('.edit-info').on('click', function (e) {
+            e.preventDefault();
+            let titleMovie = $(this).attr('data-id');
+            console.log(titleMovie);
+            $(this).parent().next().html(`<input type="text" value="${titleMovie}" >
+                                       <select class="movie-rating">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>`);
+        });
 
-    });
-}
+    }
 
-
-
-
-    $('#save-button').on('click', function(e) {
-        e.preventDefault();
-        let movieId = $(this).attr('data-id');
-        let movieTitle = $(this).parent().children().next().next().next().children().val();
-        let movieRating = $(this).parent().children().next().next().next().children().next().val();
-
-        console.log(movieTitle);
-        console.log(movieRating);
-
-        console.log(movieId);
-
-        let movieObj = {
-            'title': `${movieTitle}`,
-            'rating': `${movieRating}`
-        };
-
-
-        fetch(`https://flash-checkered-play.glitch.me/movies/${movieId}`,
-            {
-                method: 'PUT',
-                body: JSON.stringify(movieObj),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(response => response.json()).then(data => {
-            console.log(`Edited movie data JSON: ${data}`);
-        }).then(getMovieInfo)
-
-
-    });
-
-// function deleteFilm() {
-//     $('.delete-button').on('click', function (e) {
-//         e.preventDefault();
-//         let idOfMovie = $(this).attr('data-id');
-//         console.log(idOfMovie);
-//
-//         deleteMovie(idOfMovie)
-//             getMovieInfo()
-//
-//     })
-// }
 
     function deleteFilm() {
         $('.delete-button').on('click', function (e) {
@@ -192,30 +167,6 @@ function editMovieForm(movie) {
         })
     }
 
-
-
-
-
-
-
-
-/*
-const editMovie = function(movieObj, id) {
-    console.log(`ID is: ${id}`);
-    fetch(`https://flash-checkered-play.glitch.me/movies/${id}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(movieObj),
-    })
-        .then( response => response.json().then( data => {
-            console.log(`Edited movie data JSON: ${data}`);
-        }) )
-        .catch( error => console.error(error));
-
-}
- */
 
 
     $('#submit-button').on('click', function(e) {

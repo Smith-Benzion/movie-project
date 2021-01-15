@@ -63,3 +63,7 @@
     -webkit-animation-delay: 900ms;
     -moz-animation-delay: 900ms;
 }
+
+ul {
+    list-style: none;
+}
