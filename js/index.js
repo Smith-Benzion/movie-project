@@ -84,15 +84,25 @@ function getMovieInfo() {
                 <button class="edit-info" data-id="${title}">Edit</button>
                 <button class="save-button" data-id="${id}">Save</button>
                 <button class="delete-button" data-id="${id}">Delete</button>
+                <div class="d-none">
+                    <input type="text" class="movie-title">
+                    <select class="movie-rating">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
               </form>
               
-              <div class=""></div>
+              
               `;
 
             editMovieForm(movieDisplay);
 
            });
-           //saveMovie();
+
            deleteFilm()
            }).catch((error) => {
                console.log(error);
@@ -111,18 +121,44 @@ function editMovieForm(movie) {
         let titleMovie = $(this).attr('data-id');
         console.log(titleMovie);
 
-        $(this).parent().next().html(`
-        <input type="text" value="${titleMovie}">
-        <select class="movie-rating">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>`);
+        $(this).parent().children().next().next().next().removeClass("d-none");
 
     });
 }
+
+
+
+
+    $('#save-button').on('click', function(e) {
+        e.preventDefault();
+        let movieId = $(this).attr('data-id');
+        let movieTitle = $(this).parent().children().next().next().next().children().val();
+        let movieRating = $(this).parent().children().next().next().next().children().next().val();
+
+        console.log(movieTitle);
+        console.log(movieRating);
+
+        console.log(movieId);
+
+        let movieObj = {
+            'title': `${movieTitle}`,
+            'rating': `${movieRating}`
+        };
+
+
+        fetch(`https://flash-checkered-play.glitch.me/movies/${movieId}`,
+            {
+                method: 'PUT',
+                body: JSON.stringify(movieObj),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => response.json()).then(data => {
+            console.log(`Edited movie data JSON: ${data}`);
+        }).then(getMovieInfo)
+
+
+    });
 
 // function deleteFilm() {
 //     $('.delete-button').on('click', function (e) {
@@ -157,54 +193,11 @@ function editMovieForm(movie) {
     }
 
 
-/*
-function saveMovie() {
-
-    $('#save-button').on('click', function(e) {
-        e.preventDefault();
-
-        let movieId = $(this).attr('data-id');
-        let movieTitle = $(this).parent().next().children().first().val();
-        let movieRating = $(this).parent().next().children().first().next().val();
-
-        console.log(movieId);
-
-        let movieObj = {
-            title: `${movieTitle}`,
-            rating: `${movieRating}`
-        };
-
-        const options = {
-            method: 'PUT',
-            body: JSON.stringify(movieObj),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-
-        fetch(`https://flash-checkered-play.glitch.me/movies/${movieId}`,
-            {
-                method: 'PUT',
-                body: JSON.stringify(movieObj),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(response => response.json()).then(data => {
-            console.log(`Edited movie data JSON: ${data}`);
-        })
-
-        getMovieInfo();
-
-        console.log(movieObj);
-
-        editMovie(movieObj, movieId).then(getMovieInfo);
 
 
-    });
-}
 
 
- */
+
 
 /*
 const editMovie = function(movieObj, id) {
