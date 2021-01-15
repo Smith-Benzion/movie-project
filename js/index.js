@@ -60,9 +60,67 @@ $(document).ready( () => {
         $('#movie-display').html('<p id="loading" class="mt-5 text-center"><span>L</span><span>o</span><span>a</span><span>d</span><span>i</span><span>n</span><span>g</span><span>.</span><span>.</span><span>.</span></p>')
     }
 
-    renderLoading();
+
+function getMovieInfo() {
+
+       renderLoading();
+       getMovies().then((movies) => {
+
+           console.log(movies);
+
+           let movieDisplay = ``;
+
+           movies.forEach(({title, rating, id}) => {
+
+               console.log(`ID: ${id}, Title: ${title}, Rating: ${rating}`);
+
+               movieDisplay += `
+               <ul>
+                <li class="d-none">ID: ${id}</li>
+                <li>Title: ${title}</li>
+                <li>Rating: ${rating}</li>
+              </ul>   
+              <form>
+                <button class="edit-info" data-id="${title}">Edit</button>
+                <button class="save-button" data-id="">Save</button>
+                <button class="delete-button" data-id="">Delete</button>
+              </form>
+              
+              <div class=""></div>
+              `;
+
+            editMovieForm(movieDisplay);
+
+           });
+           }).catch((error) => {
+               console.log(error);
+       });
 
 
+}
+    getMovieInfo();
+
+
+function editMovieForm(movie) {
+    $('#movie-display').html(movie);
+    $('#loading').css('display', 'none');
+    $('.edit-info').on('click', function(e) {
+        e.preventDefault();
+        let titleMovie = $(this).attr('data-id');
+        console.log(titleMovie);
+
+        $(this).parent().next().html(`
+        <input type="text" value="${titleMovie}">
+        <select class="movie-rating">
+            <option value="1">1</option>
+            <option value="1">2</option>
+            <option value="1">3</option>
+            <option value="1">4</option>
+            <option value="1">5</option>
+        </select>`);
+
+    });
+}
 
 
 
