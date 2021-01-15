@@ -61,20 +61,21 @@ $(document).ready( () => {
     }
 
 
-function getMovieInfo() {
+    function getMovieInfo() {
 
-       renderLoading();
-       getMovies().then((movies) => {
+        renderLoading();
+        getMovies().then((movies) => {
 
-           console.log(movies);
+            console.log(movies);
 
-           let movieDisplay = ``;
+            let movieDisplay = ``;
 
-           movies.forEach(({title, rating, id}) => {
+            movies.forEach(({title, rating, id}) => {
 
-               console.log(`ID: ${id}, Title: ${title}, Rating: ${rating}`);
+                console.log(`ID: ${id}, Title: ${title}, Rating: ${rating}`);
 
-               movieDisplay += `
+                movieDisplay += `
+            <div>
                <ul>
                 <li class="d-none">ID: ${id}</li>
                 <li>Title: ${title}</li>
@@ -86,20 +87,20 @@ function getMovieInfo() {
                 <button class="delete-button" data-id="${id}">Delete</button>
               </form>
               <div class="edit-info"></div>
-              
+            </div>
               `;
 
-            editMovieForm(movieDisplay);
+                editMovieForm(movieDisplay);
 
-           });
-           activateSave();
-           deleteFilm()
-           }).catch((error) => {
-               console.log(error);
-       });
+            });
+            activateSave();
+            deleteFilm()
+        }).catch((error) => {
+            console.log(error);
+        });
 
 
-}
+    }
     getMovieInfo();
 
     function activateSave() {
