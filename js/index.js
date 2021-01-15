@@ -151,14 +151,13 @@ function editMovieForm(movie) {
             fetch(`https://flash-checkered-play.glitch.me/movies/${idOfMovie}`, options)
                 .then(response => response.json())
 
-                ///whole getMovies function sequence from above
                 .then(getMovieInfo);
 
         })
     }
 
 
-
+/*
 function saveMovie() {
 
     $('#save-button').on('click', function(e) {
@@ -168,20 +167,86 @@ function saveMovie() {
         let movieTitle = $(this).parent().next().children().first().val();
         let movieRating = $(this).parent().next().children().first().next().val();
 
+        console.log(movieId);
+
         let movieObj = {
             title: `${movieTitle}`,
             rating: `${movieRating}`
         };
 
+        const options = {
+            method: 'PUT',
+            body: JSON.stringify(movieObj),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        fetch(`https://flash-checkered-play.glitch.me/movies/${movieId}`,
+            {
+                method: 'PUT',
+                body: JSON.stringify(movieObj),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => response.json()).then(data => {
+            console.log(`Edited movie data JSON: ${data}`);
+        })
+
+        getMovieInfo();
+
         console.log(movieObj);
 
-        editMovie(movieObj, movieId);
-        getMovieInfo();
-    })
+        editMovie(movieObj, movieId).then(getMovieInfo);
+
+
+    });
 }
 
 
+ */
 
+/*
+const editMovie = function(movieObj, id) {
+    console.log(`ID is: ${id}`);
+    fetch(`https://flash-checkered-play.glitch.me/movies/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(movieObj),
+    })
+        .then( response => response.json().then( data => {
+            console.log(`Edited movie data JSON: ${data}`);
+        }) )
+        .catch( error => console.error(error));
+
+}
+ */
+
+
+    $('#submit-button').on('click', function(e) {
+        e.preventDefault();
+
+        renderLoading();
+
+        let title = $('#movie-title').val();
+        let rating = $('#movie-rating').val();
+
+        let movieObj = {
+            "title": title,
+            "rating": rating
+        }
+
+        fetch("https://flash-checkered-play.glitch.me/movies", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(movieObj),
+        })
+            .then( response => response.json()).then(getMovieInfo)
+    })
 
 
 
