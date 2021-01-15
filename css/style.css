@@ -104,9 +104,10 @@ body {
     /* make it smooth on iOS */
     -webkit-overflow-scrolling: touch;
 
-    background: darkcyan;
+    background: midnightblue;
 
 }
+
 .slider > div {
     /* make sure the width is honored */
     flex-shrink: 0;
@@ -114,4 +115,7 @@ body {
     height: 300px;
     background: darkcyan;
     border: midnightblue;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 10%;
 }

@@ -75,11 +75,11 @@ $(document).ready( () => {
                 console.log(`ID: ${id}, Title: ${title}, Rating: ${rating}`);
 
                 movieDisplay += `
-            <div>
-               <ul>
+            <div class="text-center">
+               <ul style="margin-right: 3em">
                 <li class="d-none">ID: ${id}</li>
                 <li>Title: ${title}</li>
-                <li>Rating: ${rating}</li>
+                <li>Rating: ${rating}/5</li>
               </ul>   
               <form>
                 <button class="edit-info" data-id="${title}">Edit</button>
