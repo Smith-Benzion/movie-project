@@ -96,13 +96,8 @@ body {
 .slider {
     /* line them up horizontally */
     display: flex;
-    flex-direction: row;
-
-    /* allow for scrolling */
-    overflow-x: auto;
-
-    /* make it smooth on iOS */
-    -webkit-overflow-scrolling: touch;
+    justify-content: center;
+    flex-wrap: wrap;
 
     background: midnightblue;
 
@@ -113,9 +108,20 @@ body {
     flex-shrink: 0;
     width: 300px;
     height: 300px;
-    background: darkcyan;
+
     border: midnightblue;
-    margin-left: 5px;
-    margin-right: 5px;
+    margin: 10px;
+    border-radius: 10%;
+    background:rgba(47, 53, 71,0.9);
+}
+
+p {
+    font-size: xxx-large;
+}
+
+button {
+    background: rgba(30, 40, 78, 0.9);
+    color: white;
+    border: rgba(30, 40, 78, 0.9);
     border-radius: 10%;
 }

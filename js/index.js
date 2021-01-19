@@ -57,51 +57,11 @@ $(document).ready( () => {
 
     //Render the loading thing
     function renderLoading() {
-        $('#movie-display').html('<p id="loading" class="mt-5 text-center"><span>L</span><span>o</span><span>a</span><span>d</span><span>i</span><span>n</span><span>g</span><span>.</span><span>.</span><span>.</span></p>')
+        $('#movie-display').html('<p id="loading" class="text-center"><span>L</span><span>o</span><span>a</span><span>d</span><span>i</span><span>n</span><span>g</span><span>.</span><span>.</span><span>.</span></p>')
     }
 
 
-    function getMovieInfo() {
 
-        renderLoading();
-        getMovies().then((movies) => {
-
-            console.log(movies);
-
-            let movieDisplay = ``;
-
-            movies.forEach(({title, rating, id}) => {
-
-                console.log(`ID: ${id}, Title: ${title}, Rating: ${rating}`);
-
-                movieDisplay += `
-            <div class="text-center">
-               <ul style="margin-right: 3em">
-                <li class="d-none">ID: ${id}</li>
-                <li>Title: ${title}</li>
-                <li>Rating: ${rating}/5</li>
-              </ul>   
-              <form>
-                <button class="edit-info" data-id="${title}">Edit</button>
-                <button class="save-button" data-id="${id}">Save</button>
-                <button class="delete-button" data-id="${id}">Delete</button>
-              </form>
-              <div class="edit-info"></div>
-            </div>
-              `;
-
-                editMovieForm(movieDisplay);
-
-            });
-            activateSave();
-            deleteFilm()
-        }).catch((error) => {
-            console.log(error);
-        });
-
-
-    }
-    getMovieInfo();
 
     function activateSave() {
         $('.save-button').on('click', function (e) {
@@ -109,9 +69,11 @@ $(document).ready( () => {
             let idMovie = $(this).attr('data-id');
             let movieTitle = $(this).parent().next().children().first().val();
             let ratingMovie = $(this).parent().next().children().first().next().val();
+            let posterLink = $(this).parent().next().children().first().next().next().val();
             let movieObj = {
                 title: `${movieTitle}`,
-                rating: `${ratingMovie}`
+                rating: `${ratingMovie}`,
+                poster: `${posterLink}`
             };
             console.log(movieObj);
             fetch(`https://flash-checkered-play.glitch.me/movies/${idMovie}`,
@@ -135,14 +97,24 @@ $(document).ready( () => {
             e.preventDefault();
             let titleMovie = $(this).attr('data-id');
             console.log(titleMovie);
-            $(this).parent().next().html(`<input type="text" value="${titleMovie}" >
+            let checker = $(this).parent().next().html();
+            if (checker === "") {
+                $(this).parent().next().html(`<input type="text" value="${titleMovie}" placeholder="Enter title" >
+                                        
                                        <select class="movie-rating">
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
                                             <option value="4">4</option>
                                             <option value="5">5</option>
-                                        </select>`);
+                                        </select>
+                                        
+                                        
+`
+                );
+            } else {
+                $(this).parent().next().html("");
+            }
         });
 
     }
@@ -195,21 +167,46 @@ $(document).ready( () => {
 
 
 
+    function getMovieInfo() {
+
+        renderLoading();
+        getMovies().then((movies) => {
+
+            console.log(movies);
+
+            let movieDisplay = ``;
+
+            movies.forEach(({title, rating, id}) => {
+
+                console.log(`ID: ${id}, Title: ${title}, Rating: ${rating}`);
+
+                movieDisplay += `
+            <div class="text-center">
+               <ul style="margin-right: 3em">
+                <li class="d-none">ID: ${id}</li>
+                <li>Title: ${title}</li>
+                <li>Rating: ${rating}/5</li>
+              </ul>   
+              <form>
+                <button class="edit-info" data-id="${title}">Edit</button>
+                <button class="save-button" data-id="${id}">Save</button>
+                <button class="delete-button" data-id="${id}">Delete</button>
+              </form>
+              <div class="edit-info"></div>
+            </div>
+              `;
+
+                editMovieForm(movieDisplay);
+
+            });
+            activateSave();
+            deleteFilm()
+        }).catch((error) => {
+            console.log(error);
+        });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
+    getMovieInfo();
 
 });
