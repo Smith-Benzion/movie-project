@@ -181,7 +181,7 @@ $(document).ready( () => {
                 console.log(`ID: ${id}, Title: ${title}, Rating: ${rating}`);
 
                 movieDisplay += `
-            <div class="text-center">
+            <div class="text-center" style="color: midnightblue">
                <ul style="margin-right: 3em">
                 <li class="d-none">ID: ${id}</li>
                 <li>Title: ${title}</li>
@@ -192,7 +192,7 @@ $(document).ready( () => {
                 <button class="save-button" data-id="${id}">Save</button>
                 <button class="delete-button" data-id="${id}">Delete</button>
               </form>
-              <div class="edit-info"></div>
+              <div></div>
             </div>
               `;
 

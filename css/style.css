@@ -72,26 +72,78 @@ ul {
 
 #title {
     font-family: 'Montserrat', sans-serif;
+    font-weight: bolder;
     color: white;
 }
 
+/*body {*/
+/*    background: midnightblue;*/
+/*    color: white;*/
+/*}*/
+
+/*Styling suggestions*/
 body {
     background: midnightblue;
-    color: white;
-}
+    color: #efefef;
 
+}
 
 #movie-display {
-    font-family: 'Montserrat', sans-serif;
-    color: white;
+    font-family: 'Apple LiGothic', sans-serif;
 }
-
 
 #add {
-    font-family: 'Montserrat', sans-serif;
+    font-family: Apple LiGothic, sans-serif;
     color: white;
 
 }
+.edit-info {
+    border-radius: 12px;
+    border: 2px solid;
+}
+
+.save-button {
+    border-radius: 12px;
+    border: 2px solid;
+}
+
+.delete-button {
+    border-radius: 12px;
+    border: 2px solid;
+}
+
+.footer {
+    background-color: #092834;
+}
+
+#movie-rating{
+    background-color: #efefef ;
+
+    color: #092834;
+    border: 2px solid white;
+    border-radius: 12px;
+}
+
+#movie-title {
+    background-color: #efefef ;
+
+    color: #092834;
+    border: 2px solid white;
+    border-radius: 12px;
+}
+
+
+/*#movie-display {*/
+/*    font-family: 'Montserrat', sans-serif;*/
+/*    color: white;*/
+/*}*/
+
+
+/*#add {*/
+/*    font-family: 'Montserrat', sans-serif;*/
+/*    color: white;*/
+
+/*}*/
 
 .slider {
     /* line them up horizontally */
@@ -99,6 +151,7 @@ body {
     justify-content: center;
     flex-wrap: wrap;
 
+    /*background: midnightblue;*/
     background: midnightblue;
 
 }
@@ -109,10 +162,11 @@ body {
     width: 300px;
     height: 300px;
 
-    border: midnightblue;
+    border: white;
     margin: 10px;
     border-radius: 10%;
-    background:rgba(47, 53, 71,0.9);
+    /*background:rgba(47, 53, 71,0.9);*/
+    background: goldenrod;
 }
 
 p {
@@ -120,7 +174,7 @@ p {
 }
 
 button {
-    background: rgba(30, 40, 78, 0.9);
+    background: midnightblue;
     color: white;
     border: rgba(30, 40, 78, 0.9);
     border-radius: 10%;
