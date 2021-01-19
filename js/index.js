@@ -6,49 +6,23 @@ const getMovies = function() {
         .then(response => response.json());
 }
 
-//Create new movie
-const createMovie = function(movieObj) {
-    fetch("https://flash-checkered-play.glitch.me/movies", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(movieObj),
-    })
-        .then( response => response.json() )
-        .then( data => console.log(data) )
-        .catch( error => console.error(error));
+
+const tmdbGet = function(search) {
+
+    let searchValue = search;
+
+    if (search.indexOf(" ") !== -1) {
+        searchValue = search.split(" ").join("+")
+    }
+    return fetch(`https://api.themoviedb.org/3/search/movie?api_key=${TMDB_TOKEN}&query=${searchValue}`).then(response => response.json()).then(results => {return results.results[0].poster_path});
 }
 
-//Edit movie
-const editMovie = function(movieObj, id) {
-    console.log(`ID is: ${id}`);
-    fetch(`https://flash-checkered-play.glitch.me/movies/${id}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(movieObj),
+getMovies().then((movies) => {
+    movies.forEach((movie) => {
+        tmdbGet(movie.title).then(result => console.log(result))
     })
-        .then( response => response.json().then( data => {
-            console.log(`Edited movie data JSON: ${data}`);
-        }) )
-        .catch( error => console.error(error));
+})
 
-}
-
-//Delete movie
-const deleteMovie = function(id) {
-    fetch(`https://flash-checkered-play.glitch.me/movies/${id}`, {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    })
-        .then( response => response.json() )
-        .then( data => console.log(`Deleted movie JSON: ${data}`) )
-        .catch( error => console.error(error));
-}
 
 
 $(document).ready( () => {
@@ -176,6 +150,8 @@ $(document).ready( () => {
 
             let movieDisplay = ``;
 
+            let imageSource = "img/baby-yoda.jpg"
+
             movies.forEach(({title, rating, id}) => {
 
                 console.log(`ID: ${id}, Title: ${title}, Rating: ${rating}`);
@@ -186,7 +162,8 @@ $(document).ready( () => {
                 <li class="d-none">ID: ${id}</li>
                 <li>Title: ${title}</li>
                 <li>Rating: ${rating}/5</li>
-              </ul>   
+              </ul>  
+              <img src=${imageSource}> 
               <form>
                 <button class="edit-info" data-id="${title}">Edit</button>
                 <button class="save-button" data-id="${id}">Save</button>

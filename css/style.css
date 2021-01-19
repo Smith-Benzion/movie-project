@@ -179,3 +179,9 @@ button {
     border: rgba(30, 40, 78, 0.9);
     border-radius: 10%;
 }
+
+img {
+
+    height: 200px;
+    width: 150px;
+}
